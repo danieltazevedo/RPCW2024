@@ -199,8 +199,8 @@ for planta in bd:
     ###  http://www.rpcw.di.uminho.pt/2024/plantas#{planta['Id']}
     <http://www.rpcw.di.uminho.pt/2024/plantas#{planta['Id']}> rdf:type owl:NamedIndividual ,
                                                                         :Planta;
+                                                                :temMorada :"{planta['Código de rua']}"^^xsd:int ;
                                                                 :id "{planta['Id']}"^^xsd:int ;
-                                                                :rua "{planta['Código de rua']}"^^xsd:int ;
                                                                 :numero_registo "{planta["Número de Registo"]}"^^xsd:int ;
                                                                 :especie "{planta['Espécie'].replace(" ", "_")}^^xsd:string ;
                                                                 :nome_cientifico "{planta['Nome Científico'].replace(" ", "_")}^^xsd:string ;
