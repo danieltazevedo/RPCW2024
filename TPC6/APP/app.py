@@ -17,7 +17,15 @@ def index():
 
 @app.route('/films')
 def films():
-    sparql_query = """ """
+    sparql_query = """ 
+    PREFIX : <http://rpcw.di.uminho.pt/2024/cinema/>
+    
+    select ?film ?duration ?release where {
+        ?film a :Film ;
+          :duration ?duration;
+          :date ?release      
+    }
+    """
     
     resposta = requests.get(graphdb_endpoint, 
                             params = {"query": sparql_query}, 
@@ -30,7 +38,14 @@ def films():
     
 @app.route('/actors')
 def actors():
-    sparql_query = """ """
+    sparql_query = """ 
+    PREFIX : <http://rpcw.di.uminho.pt/2024/cinema/>
+
+    select ?actor ?db  where {
+    ?actor a :Actor ;
+    :birthDate ?db;
+    }
+    """
     
     resposta = requests.get(graphdb_endpoint, 
                             params = {"query": sparql_query}, 
@@ -43,7 +58,14 @@ def actors():
 
 @app.route('/directors')
 def directors():
-    sparql_query = """ """
+    sparql_query = """
+    PREFIX : <http://rpcw.di.uminho.pt/2024/cinema/>
+
+    select ?director ?db  where {
+    ?director a :Director ;
+    :birthDate ?db;
+    }
+    """
     
     resposta = requests.get(graphdb_endpoint, 
                             params = {"query": sparql_query}, 
@@ -56,7 +78,14 @@ def directors():
 
 @app.route('/writers')
 def writers():
-    sparql_query = """ """
+    sparql_query = """
+    PREFIX : <http://rpcw.di.uminho.pt/2024/cinema/>
+
+    select ?writer ?db  where {
+    ?writer a :Writer ;
+    :birthDate ?db;
+    }
+    """
     
     resposta = requests.get(graphdb_endpoint, 
                             params = {"query": sparql_query}, 
@@ -69,7 +98,14 @@ def writers():
 
 @app.route('/screenwriters')
 def screenwriters():
-    sparql_query = """ """
+    sparql_query = """
+    PREFIX : <http://rpcw.di.uminho.pt/2024/cinema/>
+
+    select ?screenwriter ?db  where {
+    ?screenwriter a :Screenwriter ;
+    :birthDate ?db;
+    }
+    """
     
     resposta = requests.get(graphdb_endpoint, 
                             params = {"query": sparql_query}, 
@@ -82,7 +118,14 @@ def screenwriters():
 
 @app.route('/composers')
 def composers():
-    sparql_query = """ """
+    sparql_query = """
+    PREFIX : <http://rpcw.di.uminho.pt/2024/cinema/>
+
+    select ?composer ?db  where {
+    ?composer a :Composer ;
+    :birthDate ?db;
+    }
+    """
     
     resposta = requests.get(graphdb_endpoint, 
                             params = {"query": sparql_query}, 
@@ -95,7 +138,14 @@ def composers():
 
 @app.route('/producers')
 def producers():
-    sparql_query = """ """
+    sparql_query = """
+    PREFIX : <http://rpcw.di.uminho.pt/2024/cinema/>
+
+    select ?producer ?db  where {
+    ?producer a :Producer ;
+    :birthDate ?db;
+    }
+    """
     
     resposta = requests.get(graphdb_endpoint, 
                             params = {"query": sparql_query}, 

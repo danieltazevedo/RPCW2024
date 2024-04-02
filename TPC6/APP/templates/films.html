@@ -18,14 +18,14 @@
                     <tbody>
                         <tr>
                             <th>Title</th>
-                            <th>Duration</th>
+                            <th>Durarion</th>
                             <th>Release</th>
-                            <th>Genre</th>
-                            <th>Country</th>
                         </tr>
                         {% for elem in data %}
                             <tr>
-                               
+                                <td>{{ elem.film.value }}</td>
+                                <td>{{ elem.duration.value }}</td>
+                                <td>{{ elem.release.value }}</td>
                             </tr>
                         {% endfor %}
                     </tbody>

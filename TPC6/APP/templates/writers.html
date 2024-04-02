@@ -22,7 +22,8 @@
                         </tr>
                         {% for elem in data %}
                             <tr>
-                               
+                                <td>{{ elem.writer.value }}</td>
+                                <td>{{ elem.db.value }}</td>
                             </tr>
                         {% endfor %}
                     </tbody>
