@@ -2,6 +2,11 @@ from rdflib import Graph, Namespace, URIRef, Literal, RDF , OWL
 from urllib.parse import quote
 import pprint
 import json
+import re
+
+def normalize_iri(iri):
+    iri = re.sub(r"[\＃\“\”\£\²\♪\−\—\‘\.\,\;\-\–\+\…\¿\#\=\¹\³\$\%\*\¡\×\@\-\°\:\’\!\?\~\&\'\<\>\"\{\}\[\]\(\)\|\\\^\`\/\n\s ]", '', iri)
+    return iri
 
 cinema = Namespace("http://rpcw.di.uminho.pt/2024/cinema/")
 
@@ -21,8 +26,8 @@ composers = []
 producers = []
 
 for film in data:
-  if film['title'] != []:
-    title = film['title'][0].replace(" ","_").replace("/","").replace('"', '').replace('\\', '').replace("`","").replace('\n', '').replace("|","_")
+  if film['title'] != [] :
+    title = normalize_iri(film['title'][0])
     uri_film = URIRef(f"{cinema}{title}")
     
     g.add((uri_film, RDF.type, OWL.NamedIndividual))
@@ -31,7 +36,7 @@ for film in data:
     
     #gender
     for genre in film["gender"]:
-          genre = genre.replace(" ","_").replace("/","").replace('"', '').replace('\\', '').replace("`","").replace('\n', '').replace("|","_")
+          genre = normalize_iri(genre)
           genre_uri = URIRef(f"{cinema}{genre}")
           if genre_uri not in genres:
               genres.append(genre_uri)
@@ -47,7 +52,7 @@ for film in data:
     
     #country
     for country in film['country']:
-      country = country.split("/")[-1].replace(" ","_").replace("/","").replace('"', '').replace('\\', '').replace("`","").replace('\n', '').replace("|","_")
+      country = normalize_iri(country.split("/")[-1])
       country_uri = URIRef(f"{cinema}{country}")
       if country_uri not in countries:
           countries.append(country_uri)
@@ -64,7 +69,7 @@ for film in data:
     #actors
     actors_film = film["actors"]
     for actor in actors_film:
-      name = actors_film[actor]["name"].replace(" ","_").replace("/","").replace('"', '').replace('\\', '').replace("`","").replace('\n', '').replace("|","_")
+      name = normalize_iri(actors_film[actor]["name"])
       birth = actors_film[actor]["birth"]
       uri_actor = URIRef(f"{cinema}{name}")
       if uri_actor not in actors:
@@ -78,7 +83,7 @@ for film in data:
     #directors
     directors_film = film["directors"]
     for director in directors_film:
-      name = directors_film[director]["name"].replace(" ","_").replace("/","").replace('"', '').replace('\\', '').replace("`","").replace('\n', '').replace("|","_")
+      name = normalize_iri(directors_film[director]["name"])
       birth = directors_film[director]["birth"]
       uri_director = URIRef(f"{cinema}{name}")
       if uri_director not in directors:
@@ -92,7 +97,7 @@ for film in data:
     #writers
     writers_film = film["writers"]
     for writer in writers_film:
-      name = writers_film[writer]["name"].replace(" ","_").replace("/","").replace('"', '').replace('\\', '').replace("`","").replace('\n', '').replace("|","_")
+      name = normalize_iri(writers_film[writer]["name"])
       birth = writers_film[writer]["birth"]
       uri_writer = URIRef(f"{cinema}{name}")
       if uri_writer not in writers:
@@ -106,7 +111,7 @@ for film in data:
     #screenwriters
     screenwriters_film = film["screenwriters"]
     for screenwriter in screenwriters_film:
-      name = screenwriters_film[screenwriter]["name"].replace(" ","_").replace("/","").replace('"', '').replace('\\', '').replace("`","").replace('\n', '').replace("|","_")
+      name = normalize_iri(screenwriters_film[screenwriter]["name"])
       birth = screenwriters_film[screenwriter]["birth"]
       uri_screenwriter = URIRef(f"{cinema}{name}")
       if uri_screenwriter not in screenwriters:
@@ -120,8 +125,7 @@ for film in data:
     #composers
     composers_film = film["composers"]
     for composer in composers_film:
-      name = composers_film[composer]["name"].replace(" ","_").replace("/","").replace('"', '').replace('\\', '').replace("`","").replace('\n', '').replace("|","_")
-      birth = composers_film[composer]["birth"]
+      name = normalize_iri(composers_film[composer]["name"])
       uri_composer = URIRef(f"{cinema}{name}")
       if uri_composer not in composers:
           g.add((uri_composer, RDF.type, OWL.NamedIndividual))
@@ -134,7 +138,7 @@ for film in data:
     #producers
     producers_film = film["producers"]
     for producer in producers_film:
-      name = producers_film[producer]["name"].replace(" ","_").replace("/","").replace('"', '').replace('\\', '').replace("`","").replace('\n', '').replace("|","_")
+      name = normalize_iri(producers_film[producer]["name"])
       birth = producers_film[producer]["birth"]
       uri_producer = URIRef(f"{cinema}{name}")
       if uri_producer not in producers:
