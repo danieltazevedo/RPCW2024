@@ -1,0 +1,46 @@
+	Quantos filmes existem no repositório?
+
+PREFIX : <http://rpcw.di.uminho.pt/2024/cinema/>
+    
+select (count(?films) as ?n_films) where {
+  ?films a :Film .
+}
+
+	Qual a distribuição de filmes por ano de lançamento?
+	
+PREFIX : <http://rpcw.di.uminho.pt/2024/cinema/>
+SELECT ?release ?film WHERE { 
+    ?films a :Film .
+    ?film :date ?release . 
+} ORDER BY ?release
+	
+	Qual a distribuição de filmes por género?
+	
+PREFIX : <http://rpcw.di.uminho.pt/2024/cinema/>
+
+select ?genre (count(?films) as ?n_films) where {
+	?films a :Film ;
+          :hasGenre ?genre .
+} group by ?genre 
+
+	Em que filmes participu o ator Burt Reynolds?
+	
+PREFIX : <http://rpcw.di.uminho.pt/2024/cinema/>
+
+select ?film where {
+	?film a :Film ;
+          :hasActor ?actor .
+	?actor :name "BurtReynolds" .   
+}
+
+	Produz uma lista de realizadores com o seu nome e número de filmes que realizou.
+	
+PREFIX : <http://rpcw.di.uminho.pt/2024/cinema/>
+
+select ?director (count(?films) as ?n_films) where { 
+	?film a :Film ;
+	:hasDirector ?director . 
+} group by ?director
+
+
+
