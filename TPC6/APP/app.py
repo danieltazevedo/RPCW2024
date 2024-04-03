@@ -9,7 +9,7 @@ data_hora_atual = datetime.now()
 data_iso_formatada = data_hora_atual.strftime('%Y-%m-%dT%H:%M:%S')
 
 # GraphDB endpoint
-graphdb_endpoint = "http://localhost:7200/repositories/cinema"
+graphdb_endpoint = "http://epl.di.uminho.pt:7200/repositories/cinema2024"
 
 @app.route('/')
 def index():
